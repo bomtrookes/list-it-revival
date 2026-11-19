@@ -1,0 +1,16 @@
+<%= simple_form_for [:admin, user] do |f| %>
+  <%= f.error_notification %>
+  <%= f.input :username, input_html: { autocomplete: "off" } %>
+  <%= f.input :email, input_html: { autocomplete: "off" } %>
+  <%= f.input :password,
+        required: user.new_record?,
+        hint: user.new_record? ? "A random password is filled in for you. You'll see it once after saving." : "Leave blank to keep their current password.",
+        input_html: { value: (user.new_record? ? user.password : nil), autocomplete: "new-password" } %>
+  <% unless user == current_user %>
+    <%= f.input :admin, label: "Admin (can create and manage logins)" %>
+  <% end %>
+  <div class="d-flex gap-2">
+    <%= f.button :submit, user.new_record? ? "Create login" : "Save", class: "btn btn-flat" %>
+    <%= link_to "Cancel", admin_users_path, class: "btn btn-ghost" %>
+  </div>
+<% end %>

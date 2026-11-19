@@ -6,10 +6,10 @@
     <div class="d-flex justify-content-around align-items-center mb-3">
       <div class="img-fluid">
         <%# profile image %>
-        <% if @user.avatar %>
-          <%= image_tag @user.avatar, class: "avatar-profile", height: 100, width: 100, crop: :fill %>
+        <% if @user.avatar.present? %>
+          <%= image_tag @user.avatar, class: "avatar-profile", height: 100, width: 100 %>
         <% else %>
-          <%= image_tag "https://res.cloudinary.com/dzxuvey8d/image/upload/v1660399373/default-user_cdb0ks.jpg", class: "avatar-profile", height: 100, width: 100, crop: :fill %>
+          <%= image_tag "https://res.cloudinary.com/dzxuvey8d/image/upload/v1660399373/default-user_cdb0ks.jpg", class: "avatar-profile", height: 100, width: 100 %>
         <% end %>
       </div>
         <%# profile name & bio %>
@@ -23,6 +23,19 @@
                 <%= link_to "Unfollow", user_follow_path(@user, @following), class: "btn btn-follow", method: :delete %>
               <% else %>
                 <%= link_to "Follow", user_follows_path(@user), class: "btn btn-follow", method: :post %>
+              <% end %>
+            </div>
+          <% end %>
+          <%# own profile: account settings & admin %>
+          <% if hide_button(@user) %>
+            <div class="d-flex justify-content-center align-items-center gap-2 mt-1">
+              <% unless current_user.demo? %>
+                <%= link_to "Account", edit_user_registration_path, class: "btn btn-follow" %>
+              <% end %>
+              <% if current_user.admin? %>
+                <%= link_to admin_users_path, class: "btn btn-follow" do %>
+                  <i class="fa-solid fa-user-gear"></i> Admin
+                <% end %>
               <% end %>
             </div>
           <% end %>
@@ -96,8 +109,8 @@
             </div>
             <%= link_to user_list_path(list.user, list)  do %>
               <div class="mt-2 card-link">
-                  <% if list.photo.key %>
-                    <div class="mt-2 card-photo-title" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(<%= cl_image_path list.photo.key, class: "list-photo-card", crop: :fill %>)">
+                  <% if list.photo.attached? %>
+                    <div class="mt-2 card-photo-title" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(<%= url_for(list.photo) %>)">
                       <%= list.title %>
                     </div>
                   <% else %>
@@ -152,8 +165,8 @@
                 <% end %>
                 <%= link_to user_list_path(list.user, list)  do %>
                   <div class="mt-2 card-link">
-                      <% if list.photo.key %>
-                        <div class="mt-2 card-photo-title" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(<%= cl_image_path list.photo.key, class: "list-photo-card", crop: :fill %>)">
+                      <% if list.photo.attached? %>
+                        <div class="mt-2 card-photo-title" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(<%= url_for(list.photo) %>)">
                           <%= list.title %>
                         </div>
                       <% else %>
@@ -214,8 +227,8 @@
                 </div>
                 <%= link_to user_list_path(list.user, list)  do %>
                   <div class="mt-2 card-link">
-                      <% if list.photo.key %>
-                        <div class="mt-2 card-photo-title" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(<%= cl_image_path list.photo.key, class: "list-photo-card", crop: :fill %>)">
+                      <% if list.photo.attached? %>
+                        <div class="mt-2 card-photo-title" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(<%= url_for(list.photo) %>)">
                           <%= list.title %>
                         </div>
                       <% else %>

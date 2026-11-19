@@ -28,8 +28,16 @@ class User < ApplicationRecord
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  # No :registerable sign-up and no :recoverable emails: accounts are created by an admin.
+  devise :database_authenticatable, :rememberable, :validatable
+
+  DEMO_EMAIL = "demo@list-it.local".freeze
+
+  scope :admins, -> { where(admin: true) }
+
+  def self.demo_user
+    find_by(demo: true)
+  end
 
   # Search Users, Lists, Tags
   include PgSearch::Model

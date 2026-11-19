@@ -21,8 +21,8 @@
           </div>
           <%= link_to user_list_path(list.user, list)  do %>
             <div class="mt-2 card-link">
-                <% if list.photo.key %>
-                  <div class="mt-2 card-photo-title" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= cl_image_path list.photo.key, class: "list-photo-card", crop: :fill %>)">
+                <% if list.photo.attached? %>
+                  <div class="mt-2 card-photo-title" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= url_for(list.photo) %>)">
                     <%= list.title %>
                   </div>
                 <% else %>

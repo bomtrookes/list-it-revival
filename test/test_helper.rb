@@ -1,13 +1,19 @@
-ENV['RAILS_ENV'] ||= 'test'
+ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
 
 class ActiveSupport::TestCase
-  # Run tests in parallel with specified workers
   parallelize(workers: :number_of_processors)
+end
 
-  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-  fixtures :all
+class ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
 
-  # Add more helper methods to be used by all tests here...
+  # Rails 8 loads routes lazily; Devise needs its mappings before sign_in
+  setup { Rails.application.try(:reload_routes_unless_loaded) }
+
+  def create_user(admin: false, **attrs)
+    n = SecureRandom.hex(4)
+    User.create!({ username: "user#{n}", email: "user#{n}@example.com", password: "password123", admin: admin }.merge(attrs))
+  end
 end

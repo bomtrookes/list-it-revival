@@ -1,4 +1,3 @@
-import { end } from "@popperjs/core"
 import Rails from "@rails/ujs"
 import Sortable from "sortablejs"
 const sortList = document.querySelector("#sortList");

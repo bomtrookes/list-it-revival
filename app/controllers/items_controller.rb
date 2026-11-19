@@ -1,67 +1,44 @@
 class ItemsController < ApplicationController
-  # before_action :set_user, only: [:new, :create]
-  # before_action :set_list, only: [:new, :create]
-  def index
-    @items = Item.all
-  end
-
-  def new
-    @item = Item.new
-  end
+  before_action :find_item, only: [:update, :destroy]
 
   def create
-    @item = Item.new(item_params)
-    @item.list = List.find(params[:item][:list_id])
-    if @item.save
-      redirect_to user_list_path(user_id: current_user, id: @item.list)
-    else
-      flash[:notice] = "Invalid"
-      redirect_to user_list_path(user_id: current_user, id: @item.list)
-    end
-  end
+    list = List.find(params[:item][:list_id])
+    return require_owner!(list) unless can_manage?(list)
 
-  def edit
-    @item = find_item
+    @item = list.items.new(item_params)
+    flash[:notice] = "Invalid" unless @item.save
+    redirect_to user_list_path(user_id: list.user, id: list)
   end
 
   def update
-    @item = find_item
+    return require_owner!(@item.list) unless can_manage?(@item.list)
+
     if @item.update(item_params)
       respond_to do |format|
-        format.html { redirect_to items_path }
-        format.text { render partial: "lists/item_infos", locals: { item: @item, list: @list }, formats: [:html] }
+        format.html { redirect_to user_list_path(user_id: @item.list.user, id: @item.list) }
+        format.text { render partial: "lists/item_infos", locals: { item: @item, list: @item.list }, formats: [:html] }
       end
       flash[:notice] = "Updated!"
     else
       flash[:notice] = "Invalid"
-      render :edit
+      redirect_to user_list_path(user_id: @item.list.user, id: @item.list)
     end
   end
 
   def destroy
-    @item = find_item
+    return require_owner!(@item.list) unless can_manage?(@item.list)
+
     @item.destroy
-
-    session[:return_to] ||= request.referer
-    redirect_to session.delete(:return_to)
-
+    redirect_back fallback_location: user_list_path(user_id: @item.list.user, id: @item.list)
   end
 
   private
 
   def item_params
-    params.require(:item).permit(:name, :description, :photo, :list_id)
+    params.require(:item).permit(:name, :description, :photo)
   end
 
   def find_item
     @item = Item.find(params[:id])
   end
-
-  # def set_user
-  #   @user = User.find(params[:user_id])
-  # end
-
-  # def set_list
-  #   @list = List.find(params[:list_id])
-  # end
 end

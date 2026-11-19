@@ -1,5 +1,7 @@
 class ListsController < ApplicationController
   before_action :set_user, only: [:new, :create, :publish, :article, :show, :destroy]
+  before_action :find_list, only: [:show, :edit, :update, :destroy, :publish, :article]
+  before_action :authorize_list!, only: [:edit, :update, :destroy, :publish, :article]
 
   def index
     # search
@@ -31,13 +33,15 @@ class ListsController < ApplicationController
     if @list.save
       redirect_to user_list_path(user_id: current_user, id: @list)
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
   # read individual lists
   def show
-    @list = find_list
+    # Drafts are only visible to their owner (and admins)
+    return redirect_to(root_path, alert: "That list isn't published yet.") if !@list.published && !can_manage?(@list)
+
     @item = Item.new
     @related_lists = @list.find_related_tags
     @following = current_user.followings.find_by(id: @user.id)
@@ -46,11 +50,9 @@ class ListsController < ApplicationController
   end
 
   def edit
-    @list = find_list
   end
 
   def update
-    @list = find_list
     # @list.update(list_params)
     # redirect_to @list
     if @list.update(list_params)
@@ -61,26 +63,23 @@ class ListsController < ApplicationController
       flash[:notice] = "Updated!"
     else
       flash[:notice] = "Invalid"
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @list = find_list
     @list.destroy
 
-    redirect_to user_path(@user)
+    redirect_to user_path(current_user)
   end
 
   def publish
-    @list = find_list
     @list.published = true
     @list.save
     redirect_to user_path(@user)
   end
 
   def article
-    @list = find_list
     if @list.article == false
       @list.article = true
     else
@@ -110,11 +109,11 @@ class ListsController < ApplicationController
   end
 
   def set_user
-    if params[:user_id] == current_user.id
-      @user = current_user
-    else
-      @user = User.find(params[:user_id])
-    end
+    @user = User.find(params[:user_id])
+  end
+
+  def authorize_list!
+    require_owner!(@list)
   end
 
   def tagged_lists(tag)

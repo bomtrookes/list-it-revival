@@ -28,8 +28,8 @@ module ListsHelper
   end
 
   def random_list
-    list = List.published_lists.where("user_id != ?", current_user).sample
-    return user_list_path(list.user, list)
+    list = List.published_lists.where.not(user_id: current_user.id).sample
+    list ? user_list_path(list.user, list) : user_lists_path(current_user)
   end
 
   def tagged_lists(tag)

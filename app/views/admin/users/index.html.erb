@@ -1,0 +1,61 @@
+<div class="pad admin-page">
+  <div class="d-flex justify-content-between align-items-center mt-3 mb-3">
+    <h1 class="h4 mb-0">Logins</h1>
+    <%= link_to "New login", new_admin_user_path, class: "btn btn-flat" %>
+  </div>
+
+  <% if @created_password %>
+    <div class="card p-3 mb-3 admin-new-login">
+      <p class="mb-1"><strong>Send these details to <%= @user.username %>:</strong></p>
+      <p class="mb-1">Site: <%= root_url %></p>
+      <p class="mb-1">Email: <code><%= @user.email %></code></p>
+      <p class="mb-2">Password: <code><%= @created_password %></code></p>
+      <small class="text-muted">This password is only shown once. They can change it from their account page after logging in.</small>
+    </div>
+  <% end %>
+
+  <div class="card p-2 mb-2">
+    <table class="table table-sm align-middle mb-0">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th class="d-none d-md-table-cell">Email</th>
+          <th>Lists</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td>
+              <%= link_to format_username(user.username), user_path(user) %>
+              <% if user.admin? %><span class="badge bg-success ms-1">admin</span><% end %>
+              <% if user.demo? %><span class="badge bg-secondary ms-1">demo</span><% end %>
+              <% if user.sample? %><span class="badge bg-light text-muted ms-1">sample</span><% end %>
+            </td>
+            <td class="d-none d-md-table-cell"><%= user.email %></td>
+            <td><%= user.lists.size %></td>
+            <td class="text-end text-nowrap">
+              <% unless user.demo? || user.sample? %>
+                <%= link_to "Edit", edit_admin_user_path(user), class: "btn btn-sm btn-ghoul" %>
+              <% end %>
+              <% unless user == current_user || user.demo? %>
+                <%= button_to "Delete", admin_user_path(user), method: :delete,
+                      class: "btn btn-sm btn-outline-danger", form_class: "d-inline",
+                      data: { confirm: "Delete @#{user.username} and all their lists?" } %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="mb-5 text-center">
+    <% if @show_sample %>
+      <%= link_to "Hide sample users", admin_users_path %>
+    <% elsif @sample_count > 0 %>
+      <%= link_to "Show the #{@sample_count} sample users from the original seed data", admin_users_path(sample: 1) %>
+    <% end %>
+  </p>
+</div>

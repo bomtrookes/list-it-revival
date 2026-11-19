@@ -1,12 +1,20 @@
-// Load all the controllers within this directory and all subdirectories.
-// Controller files must be named *_controller.js.
+import { Application } from "@hotwired/stimulus"
 
-import { Application } from "stimulus"
-import { definitionsFromContext } from "stimulus/webpack-helpers"
+import AddItemController from "./add_item_controller"
+import ChangeViewController from "./change_view_controller"
+import EditItemController from "./edit_item_controller"
+import FilterSearchController from "./filter_search_controller"
+import PreviewController from "./preview_controller"
+import { initSortable } from "./init_sortable"
 
 const application = Application.start()
-const context = require.context("controllers", true, /_controller\.js$/)
-application.load(definitionsFromContext(context))
+application.debug = false
+window.Stimulus = application
 
-import { initSortable } from "./init_sortable"
+application.register("add-item", AddItemController)
+application.register("change-view", ChangeViewController)
+application.register("edit-item", EditItemController)
+application.register("filter-search", FilterSearchController)
+application.register("preview", PreviewController)
+
 initSortable()

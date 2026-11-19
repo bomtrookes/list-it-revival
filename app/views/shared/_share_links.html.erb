@@ -1,0 +1,16 @@
+<%# Replaces the old social-share-button gem, which no longer works with current Rails %>
+<% text = "#{title} on List-It" %>
+<div class="share-links d-flex justify-content-center gap-4 fs-3">
+  <%= link_to "https://wa.me/?text=#{ERB::Util.url_encode("#{text} #{url}")}", target: "_blank", rel: "noopener", title: "Share on WhatsApp" do %>
+    <i class="fa-brands fa-whatsapp"></i>
+  <% end %>
+  <%= link_to "https://twitter.com/intent/tweet?text=#{ERB::Util.url_encode(text)}&url=#{ERB::Util.url_encode(url)}", target: "_blank", rel: "noopener", title: "Share on X" do %>
+    <i class="fa-brands fa-x-twitter"></i>
+  <% end %>
+  <%= link_to "https://www.facebook.com/sharer/sharer.php?u=#{ERB::Util.url_encode(url)}", target: "_blank", rel: "noopener", title: "Share on Facebook" do %>
+    <i class="fa-brands fa-facebook"></i>
+  <% end %>
+  <%= link_to "mailto:?subject=#{ERB::Util.url_encode(text)}&body=#{ERB::Util.url_encode(url)}", title: "Share by email" do %>
+    <i class="fa-solid fa-envelope"></i>
+  <% end %>
+</div>

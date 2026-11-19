@@ -1,0 +1,52 @@
+# Production setup for List-It: the app, a Postgres database, and a job that resets the demo account.
+#
+#   cp .env.example .env    # then fill it in
+#   docker compose up -d --build
+#
+# The app listens on port 3000 (APP_PORT in .env). Put it behind your usual reverse proxy for HTTPS.
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: list_it
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: list_it_production
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U list_it"]
+      interval: 5s
+      retries: 10
+
+  web:
+    build: .
+    image: list-it
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://list_it:${POSTGRES_PASSWORD}@db:5432/list_it_production
+    ports:
+      - "${APP_PORT:-3000}:3000"
+    volumes:
+      - uploads:/rails/storage
+
+  # Puts the demo account back to its starting state every DEMO_RESET_HOURS (default 24).
+  demo-reset:
+    image: list-it
+    restart: unless-stopped
+    depends_on:
+      - web
+    env_file: .env
+    environment:
+      DATABASE_URL: postgres://list_it:${POSTGRES_PASSWORD}@db:5432/list_it_production
+    volumes:
+      - uploads:/rails/storage
+    entrypoint: ["bin/demo-reset-loop"]
+
+volumes:
+  db-data:
+  uploads:

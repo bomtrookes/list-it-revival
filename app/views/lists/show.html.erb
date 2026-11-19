@@ -4,8 +4,8 @@
     <span class="d-none" id="published-status"><%= @list.published %></span>
 
   <%# LIST PUBLISH OPTIONS %>
-    <% if @list.photo.key %>
-      <div class="card-photo-title mt-2 mb-2" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(<%= cl_image_path @list.photo.key, class: "list-photo-card", crop: :fill %>); height: 140px">
+    <% if @list.photo.attached? %>
+      <div class="card-photo-title mt-2 mb-2" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(<%= url_for(@list.photo) %>); height: 140px">
         <h1 id="list-title"><%= @list.title.titleize %></h1>
         <div id="title">
         <% if hide_button(@list.user)%>
@@ -145,7 +145,7 @@
                 <% else %>
                   <p class="li-desc"><%= item.description %></p>
                   <div class="d-flex justify-content-center list-item-photo-box">
-                    <%= cl_image_tag item.photo.key, class:"list-item-photo-card" if item.photo.key %>
+                    <%= image_tag(item.photo, class: "list-item-photo-card") if item.photo.attached? %>
                   </div>
                 <% end %>
               <% end %>
@@ -172,7 +172,7 @@
           </div>
 
           <div class="modal-body">
-            <%= social_share_button_tag(@list.title) %>
+            <%= render "shared/share_links", title: @list.title, url: request.original_url %>
           </div>
 
           <div class="modal-footer">

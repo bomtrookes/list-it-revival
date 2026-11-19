@@ -3,7 +3,7 @@
 
       <div class="logo-text">
         <div class="home-logos">
-          <%= image_tag("https://res.cloudinary.com/mygreenhouses/image/upload/v1655547120/list-it/listit-icon_wordmark-horizontal_tgonja.png", width: 250, crop: :fill) %>
+          <%= image_tag("https://res.cloudinary.com/mygreenhouses/image/upload/v1655547120/list-it/listit-icon_wordmark-horizontal_tgonja.png", width: 250) %>
         </div>
       </div>
 
@@ -29,8 +29,11 @@
             <%= f.button :submit, "Log in", class:"btn btn-flat" %>
           </div>
         <% end %>
-        <br>
-        <%= render "devise/shared/links" %>
+        <% if User.demo_user %>
+          <div class="mt-3">
+            <%= button_to "Try the demo instead", demo_session_path, class: "btn btn-ghost", form_class: "d-inline" %>
+          </div>
+        <% end %>
       </div>
 
   </div>

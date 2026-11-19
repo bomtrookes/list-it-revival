@@ -10,10 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_20_173923) do
-
+ActiveRecord::Schema[8.1].define(version: 2026_11_19_180522) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -46,8 +45,8 @@ ActiveRecord::Schema.define(version: 2022_06_20_173923) do
   create_table "favourite_lists", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "list_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["list_id"], name: "index_favourite_lists_on_list_id"
     t.index ["user_id"], name: "index_favourite_lists_on_user_id"
   end
@@ -55,8 +54,8 @@ ActiveRecord::Schema.define(version: 2022_06_20_173923) do
   create_table "follows", force: :cascade do |t|
     t.integer "follower_id"
     t.integer "followed_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "items", force: :cascade do |t|
@@ -64,8 +63,8 @@ ActiveRecord::Schema.define(version: 2022_06_20_173923) do
     t.text "description"
     t.string "link"
     t.bigint "list_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["list_id"], name: "index_items_on_list_id"
   end
 
@@ -73,8 +72,8 @@ ActiveRecord::Schema.define(version: 2022_06_20_173923) do
     t.string "title"
     t.boolean "published", default: false
     t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean "article", default: false
     t.index ["user_id"], name: "index_lists_on_user_id"
   end
@@ -83,8 +82,8 @@ ActiveRecord::Schema.define(version: 2022_06_20_173923) do
     t.text "content"
     t.string "searchable_type"
     t.bigint "searchable_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable"
   end
 
@@ -113,8 +112,8 @@ ActiveRecord::Schema.define(version: 2022_06_20_173923) do
 
   create_table "tags", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "taggings_count", default: 0
     t.index ["name"], name: "index_tags_on_name", unique: true
   end
@@ -125,20 +124,22 @@ ActiveRecord::Schema.define(version: 2022_06_20_173923) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "username"
     t.string "avatar"
     t.text "bio"
     t.boolean "admin", default: false
+    t.boolean "demo", default: false, null: false
+    t.boolean "sample", default: false, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   create_table "votes", force: :cascade do |t|
     t.bigint "list_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["list_id"], name: "index_votes_on_list_id"
     t.index ["user_id"], name: "index_votes_on_user_id"

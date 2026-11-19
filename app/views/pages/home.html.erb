@@ -5,11 +5,11 @@
 
       <div class="logo-text">
         <div class="home-logos">
-          <%= image_tag("https://res.cloudinary.com/mygreenhouses/image/upload/v1655547120/list-it/listit-icon_tldjfn.png", width: 120, height: 120, crop: :fill) %>
+          <%= image_tag("https://res.cloudinary.com/mygreenhouses/image/upload/v1655547120/list-it/listit-icon_tldjfn.png", width: 120, height: 120) %>
         </div>
 
         <div class="home-logos">
-          <%= image_tag("https://res.cloudinary.com/mygreenhouses/image/upload/v1655547120/list-it/listit-wordmark_dkt0ky.png", width: 250, crop: :fill) %>
+          <%= image_tag("https://res.cloudinary.com/mygreenhouses/image/upload/v1655547120/list-it/listit-wordmark_dkt0ky.png", width: 250) %>
         </div>
         <h3>Create. Discover. Share.</h3>
       </div>
@@ -17,8 +17,13 @@
       <div class="welcome-card">
         <h1 class="h3 mb-3 font-weight-normal">Welcome!</h1>
         <p>List-it is a community of list lovers. From the most generic topics to the most niche interests. There's a list of anything you can think of!</p>
-        <%= link_to "Log in", new_user_session_path, class: "btn btn-flat" %>
-        <%= link_to "Sign up", new_user_registration_path, class: "btn btn-ghost" %>
+        <div class="d-flex flex-wrap justify-content-center gap-2">
+          <%= link_to "Log in", new_user_session_path, class: "btn btn-flat" %>
+          <% if User.demo_user %>
+            <%= button_to "Try the demo", demo_session_path, class: "btn btn-ghost", form_class: "d-inline" %>
+          <% end %>
+        </div>
+        <p class="mt-3 mb-0"><small>Accounts are invite-only. Use the demo to look around.</small></p>
       </div>
 
     </div>
@@ -48,8 +53,8 @@
           </div>
           <%= link_to user_list_path(list.user, list)  do %>
             <div class="mt-2 card-link">
-                <% if list.photo.key %>
-                  <div class="mt-2 card-photo-title" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(<%= cl_image_path list.photo.key, class: "list-photo-card", crop: :fill %>)">
+                <% if list.photo.attached? %>
+                  <div class="mt-2 card-photo-title" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(<%= url_for(list.photo) %>)">
                     <%= list.title %>
                     <% if list.article == true %>
                       <span id="clip">
