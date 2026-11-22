@@ -1,7 +1,6 @@
 
- <div class="pad d-flex flex-column justify-content-between" data-controller="preview">
+ <div class="pad d-flex flex-column justify-content-between" data-controller="preview" data-preview-published-value="<%= @list.published %>">
   <div>
-    <span class="d-none" id="published-status"><%= @list.published %></span>
 
   <%# LIST PUBLISH OPTIONS %>
     <% if @list.photo.attached? %>
@@ -33,7 +32,7 @@
 
             <%# PREVIEW %>
             <% if @list.user == current_user %>
-              <%= link_to "Preview", "#", id:"preview", class:"btn btn-preview btn-sm", style:"width:100%" %>
+              <%= link_to "Preview", "#", id: "preview", class: "btn btn-preview btn-sm", style: "width:100%", data: { preview_target: "button", action: "click->preview#toggle" } %>
                 <%# <i class="fa-solid fa-eye"></i> %>
             <% end %>
 

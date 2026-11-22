@@ -32,6 +32,14 @@
   <% else %>
 
 <div class="pad">
+  <% if @lists.empty? %>
+    <div class="empty-state text-center">
+      <i class="fa-regular fa-rectangle-list" aria-hidden="true"></i>
+      <h2 class="h5 mt-3">Your feed is empty</h2>
+      <p>Follow people and their newest lists will show up here.</p>
+      <%= link_to "Discover lists", user_lists_path(current_user), class: "btn btn-flat" %>
+    </div>
+  <% end %>
   <div class="row mt-2">
     <%# list card starts %>
     <% @lists.each do | list | %>

@@ -1,7 +1,7 @@
 // Flash messages float above the bottom navbar and fade out on their own
 .alert {
   position: fixed;
-  bottom: 72px;
+  bottom: calc(80px + env(safe-area-inset-bottom));
   right: 16px;
   left: 16px;
   max-width: 480px;

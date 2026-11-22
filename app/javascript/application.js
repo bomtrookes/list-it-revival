@@ -14,3 +14,9 @@ import "./controllers"
 document.querySelectorAll(".alert-dismissible").forEach((el) => {
   setTimeout(() => bootstrap.Alert.getOrCreateInstance(el).close(), 5000)
 })
+
+// Article lists: the (i) button toggles its active colour
+document.addEventListener("click", (event) => {
+  const btn = event.target.closest(".infoBtn")
+  if (btn) btn.classList.toggle("info-active")
+})

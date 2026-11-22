@@ -1,29 +1,59 @@
+// Bottom tab bar. Sits above the iPhone home indicator (safe area) and
+// gives every tab an equal, full-height tap target with a label.
+$bottom-nav-height: 64px;
+
 .bottom-navbar {
-  position : fixed;
-  bottom : 0;
-  left : 0;
-  width : 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
   background: $li-green;
-  color : white;
-  height : 50px;
-  z-index : 10;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
+  padding-bottom: env(safe-area-inset-bottom);
+
   ul {
+    display: flex;
     list-style: none;
-    margin : 0;
-    padding : 8px 0;
+    margin: 0 auto;
+    padding: 0 4px;
+    max-width: 640px;
+    height: $bottom-nav-height;
   }
-  li {
-    color : black;
-    font-size : 18px;
+
+  li { flex: 1; }
+}
+
+.bottom-nav-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 100%;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  border-radius: 12px;
+  transition: color 0.15s ease, background 0.15s ease;
+
+  svg, i { font-size: 22px; }
+
+  &:hover, &:focus-visible { color: white; background: rgba(255, 255, 255, 0.12); }
+
+  &.active {
+    color: white;
+    .bottom-nav-label { font-weight: 700; }
   }
-  li span {
-    color : white;
-    font-size : 26px;
-  }
-  a {
-    text-decoration: none;
-    color : white;
-    font-size : 20px;
-    font-weight: bold;
-  }
+}
+
+.bottom-nav-label {
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+// Leave room for the bar at the bottom of every page
+body .pad {
+  padding-top: calc(50px + env(safe-area-inset-top));
+  padding-bottom: calc(#{$bottom-nav-height} + 24px + env(safe-area-inset-bottom));
 }

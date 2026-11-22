@@ -98,3 +98,11 @@ body {
   width: 100%;
   z-index: 5;
 }
+
+.empty-state {
+  margin: 48px auto 0;
+  max-width: 320px;
+  color: $li-gray;
+  svg, i { font-size: 40px; color: $li-green; }
+  h2 { color: $li-dark-gray; }
+}

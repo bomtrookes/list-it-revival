@@ -161,3 +161,10 @@ ol {
   border-radius: 8px;
   padding: 10px 12px;
 }
+
+// Preview mode: hide everything that's only for editing
+.is-previewing {
+  #title, #tags, #add, .my-handle, .delBtn, .list-editor,
+  [data-edit-item-target="article"] em { display: none !important; }
+  .list-item-title { pointer-events: none; }
+}
