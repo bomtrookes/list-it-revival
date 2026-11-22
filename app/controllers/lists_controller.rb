@@ -89,6 +89,19 @@ class ListsController < ApplicationController
     redirect_to user_list_path(user_id: current_user, id: @list)
   end
 
+  # Drag-and-drop order of a user's published lists on their profile
+  def sort
+    user = User.find(params[:user_id])
+    return head(:forbidden) unless user == current_user || current_user.admin?
+
+    ids = Array(params[:ids]).map(&:to_i)
+    lists = user.lists.where(id: ids).index_by(&:id)
+    List.transaction do
+      ids.each_with_index { |id, index| lists[id]&.update_column(:position, index + 1) }
+    end
+    head :no_content
+  end
+
   def tagged
     if params[:tag].present?
       @lists = List.published_lists.tagged_with(params[:tag]).sort_by {|list| list.votes.size }.reverse!

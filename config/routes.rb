@@ -26,6 +26,9 @@ Rails.application.routes.draw do
 
   resources :users, only: [:index, :show] do
     resources :lists do
+      collection do
+        patch :sort
+      end
       member do
         get :publish
         post :article
@@ -39,6 +42,10 @@ Rails.application.routes.draw do
   resources :lists, only: [:index] do
     resources :favourite_lists, only: [:create, :destroy]
     resources :votes, only: [:create, :destroy]
-    resources :items, only: [:destroy]
+    resources :items, only: [:destroy] do
+      collection do
+        patch :sort
+      end
+    end
   end
 end

@@ -1,7 +1,3 @@
-.my-handle {
-	cursor: move;
-	cursor: -webkit-grabbing;
-}
 .fa-xmark {
   color : $li-light-gray;
   // padding-right : 8px;
@@ -88,16 +84,122 @@ ol {
   font-weight : bold;
   font-family : "Work Sans"
 }
-.list-item {
-  margin-bottom: 8px;
-  background-color: rgba(216, 216, 216, 0.1);
-  border-radius : 4px;
+// Ranked items: numbered 1-10, owners drag the grip to reorder
+.item-list {
+  list-style: none;
+  padding-left: 0;
+  counter-reset: rank;
 }
+.list-item {
+  counter-increment: rank;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  &.ghost { opacity: 0.4; }
+  &.sortable-chosen .item-card { box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12); }
+}
+.item-card {
+  padding: 10px 10px 10px 12px;
+  border: 1px solid #ececec;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+.item-rank {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  border-radius: 50%;
+  background: $li-light-green;
+  color: darken($li-green, 25%);
+  font-weight: 700;
+  font-size: 15px;
+  &::before { content: counter(rank); }
+}
+.list-item:nth-child(1) .item-rank { background: $li-green; color: white; }
 .list-item-title {
-  width : 100%;
-  text-align : center;
-  margin-bottom : 0;
-  color : $li-dark-gray;
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: left;
+  margin-bottom: 0;
+  font-size: 17px;
+  line-height: 1.3;
+  color: $li-dark-gray;
+  overflow-wrap: anywhere;
+  &.is-editable { cursor: text; }
+}
+.item-actions {
+  flex: 0 0 auto;
+  gap: 2px;
+  margin-left: 6px;
+  .infoBtn, .delBtn, .my-handle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: $li-light-gray;
+    font-size: 16px;
+  }
+  .delBtn:hover, .delBtn:focus { color: $li-red; }
+  .infoBtn.info-active, .infoBtn:hover { color: $li-green; }
+  .delBtn svg { padding-right: 0; }
+}
+.my-handle, .list-drag-handle {
+  cursor: grab;
+  touch-action: none; // lets the drag start straight away on phones
+  color: $li-gray !important;
+  &:active { cursor: grabbing; }
+}
+.add-desc-hint {
+  display: block;
+  margin: 6px 0 2px 40px;
+  font-size: 13px;
+  color: $li-gray;
+}
+.item-edit-form {
+  margin: 4px 0 2px;
+  .form-control { background: $li-light-gray-bg; border: 0; border-radius: 8px; }
+  .mb-3 { margin-bottom: 8px !important; }
+}
+
+// Profile: drag handle on your own list cards
+.list-drag-handle {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px 2px 2px;
+  font-size: 14px;
+}
+.sort-hint {
+  margin: 0 0 6px;
+  font-size: 13px;
+  color: $li-gray;
+  text-align: center;
+}
+[data-controller~="sortable"] > .ghost { opacity: 0.4; }
+
+// Photo fields
+input[type="file"].form-control {
+  font-size: 14px;
+  border-radius: 8px;
+  &::file-selector-button {
+    background: $li-light-green;
+    color: darken($li-green, 30%);
+    border: 0;
+    margin-right: 10px;
+  }
+}
+.photo-upload-error {
+  margin: 6px 0;
+  font-size: 13px;
+  color: $li-red;
 }
 #list-user {
   color : $li-green;
@@ -123,9 +225,6 @@ ol {
   font-style: italic;
   font-size : 14px;
   color : rgb(0, 70, 185);
-}
-.item-card {
-  padding: 0 8px 0 8px;
 }
 // update form
 #new-list {

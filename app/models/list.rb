@@ -1,9 +1,9 @@
 class List < ApplicationRecord
   belongs_to :user
 
-  has_one_attached :photo
+  include HasPhoto
 
-  has_many :items, dependent: :destroy
+  has_many :items, -> { ordered }, dependent: :destroy
   has_many :favourite_lists, dependent: :destroy
   has_many :favoriters, through: :favourite_lists, source: :user
   has_many :votes, dependent: :destroy
@@ -41,8 +41,13 @@ class List < ApplicationRecord
     where(user_id: following, published: true).order('created_at DESC')
   end
 
+  # A user's profile order: lists they've arranged by dragging, with newer unarranged lists on top
   def self.newest_published(user)
-    where(user_id: user, published: true).order('created_at DESC')
+    where(user_id: user, published: true).profile_order
+  end
+
+  def self.profile_order
+    order(Arel.sql("lists.position ASC NULLS FIRST, lists.created_at DESC"))
   end
 
 end

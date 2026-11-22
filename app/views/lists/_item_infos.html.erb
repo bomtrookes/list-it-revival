@@ -1,49 +1,51 @@
-<div class="item-card card pt-2 pb-1" data-controller="edit-item" data-edit-item-target="card">
-  <div class="item-infos d-flex justify-content-between" data-edit-item-target="infos">
-    <span class="my-handle">:: </span>
-    <h5 class="list-item-title" data-action="click->edit-item#displayForm"><span class="my-handle">:: </span><%= @item.name %></h5>
+<%# One item card. Rendered by lists/show and by ItemsController#update after an inline edit. %>
+<% owner = can_manage?(list) %>
+<div class="item-card card" data-controller="edit-item" data-edit-item-target="card">
+  <div class="item-infos d-flex align-items-center" data-edit-item-target="infos">
+    <span class="item-rank" aria-hidden="true"></span>
 
-    <div class="d-flex">
-      <% if hide_button(@item.list.user)%>
-        <%# delete %>
-        <%= link_to list_item_path(item.list, item), method: :delete do %>
-        <p class="delBtn"><i class="fa-solid fa-xmark"></i></p>
-      <% end %>
+    <h5 class="list-item-title<%= ' is-editable' if owner %>" <% if owner %>data-action="click->edit-item#displayForm" title="Tap to edit"<% end %>><%= item.name %></h5>
 
+    <div class="item-actions d-flex align-items-center">
+      <% if list.article %>
+        <button type="button" class="infoBtn" aria-label="Show details" data-action="click->edit-item#descBtn"><i class="fa-solid fa-circle-info"></i></button>
       <% end %>
-      <%# article %>
-      <% if @item.list.article == true %>
-        <%# reveal article %>
-        <p class="infoBtn"><i class="fa-solid fa-circle-info" data-action="click->edit-item#descBtn"></i></p>
+      <% if owner %>
+        <%= link_to list_item_path(list, item), method: :delete, class: "delBtn", aria: { label: "Delete item" }, data: { confirm: "Delete \"#{item.name}\"?" } do %>
+          <i class="fa-solid fa-xmark"></i>
+        <% end %>
+        <span class="my-handle" aria-label="Drag to reorder" title="Drag to reorder"><i class="fa-solid fa-grip-vertical"></i></span>
       <% end %>
     </div>
-
   </div>
 
-  <%= simple_form_for @item, html: { id: "sort-form", class: "d-none", data: { edit_item_target: "form", action: "submit->edit-item#update" } } do |f| %>
-    <%= f.input :name, label: false %>
-    <% if @item.list.article == true %>
-      <%= f.input :description, label: false %>
-      <%= f.input :photo, as: :file %>
+  <% if owner %>
+    <%= simple_form_for item, html: { class: "item-edit-form d-none", data: { edit_item_target: "form", action: "submit->edit-item#update" } } do |f| %>
+      <%= f.input :name, label: false %>
+      <% if list.article %>
+        <%= f.input :description, label: false, placeholder: "A few words about it (optional)" %>
+        <%= f.input :photo, as: :file, label: false, input_html: photo_input_html %>
+      <% end %>
+      <%= f.hidden_field :list_id, value: list.id %>
+      <%= f.submit "Save", class: "btn btn-flat w-100" %>
     <% end %>
-    <%= f.hidden_field :list_id, value: @item.list.id %>
-    <%= f.submit "Save", style:"width: 100%" %>
   <% end %>
 
   <%# ARTICLE VIEW %>
   <div data-edit-item-target="article">
-    <% if @item.list.article == true %>
-      <% if @item.description == nil || @item.description == ""  %>
-         <% if hide_button(@item.list.user) %>
-            <em>+ List Description...</em>
-          <% end %>
-      <% else %>
-        <p class="li-desc"><%= @item.description %></p>
-        <div class="d-flex justify-content-center list-item-photo-box">
-          <%= image_tag(item.photo, class: "list-item-photo-card") if item.photo.attached? %>
-        </div>
+    <% if list.article %>
+      <% if item.description.blank? %>
+        <% if owner %>
+          <em class="add-desc-hint">+ Add a description or photo: tap the item name</em>
         <% end %>
+      <% else %>
+        <p class="li-desc"><%= item.description %></p>
+      <% end %>
+      <% if item.photo.attached? %>
+        <div class="d-flex justify-content-center list-item-photo-box">
+          <%= image_tag photo_url(item.photo, :large), class: "list-item-photo-card", loading: "lazy", alt: item.name %>
+        </div>
+      <% end %>
     <% end %>
   </div>
-
 </div>

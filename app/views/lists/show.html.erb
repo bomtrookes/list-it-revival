@@ -4,7 +4,7 @@
 
   <%# LIST PUBLISH OPTIONS %>
     <% if @list.photo.attached? %>
-      <div class="card-photo-title mt-2 mb-2" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(<%= url_for(@list.photo) %>); height: 140px">
+      <div class="card-photo-title mt-2 mb-2" style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(<%= photo_url(@list.photo, :large) %>); height: 140px">
         <h1 id="list-title"><%= @list.title.titleize %></h1>
         <div id="title">
         <% if hide_button(@list.user)%>
@@ -90,70 +90,17 @@
 
     <%# CURRENT LIST & ADD ITEMS %>
     <div class="current-list" data-controller="add-item">
-      <ul id="sortList" class="mt-3">
-      <% if @list.user != current_user %>
-        <div id="cover"></div>
+      <% if can_manage?(@list) %>
+        <ol id="sortList" class="item-list mt-3" data-controller="sortable" data-sortable-url-value="<%= sort_list_items_path(@list) %>" data-sortable-handle-value=".my-handle">
+      <% else %>
+        <ol id="sortList" class="item-list mt-3">
       <% end %>
-      <% @list.items.each do | item | %>
-        <li class="list-item" data-value="list-order">
-          <div class="item-card card pt-2 pb-1" data-controller="edit-item" data-edit-item-target="card">
-            <div class="item-infos d-flex justify-content-between" data-edit-item-target="infos">
-
-
-
-              <h5 class="list-item-title" data-edit-item-target="infos" data-action="click->edit-item#displayForm"><span class="my-handle">:: </span><%= item.name %>
-              </h5>
-
-              <div class="d-flex">
-                <% if hide_button(@list.user)%>
-                  <%# delete item %>
-                  <%= link_to list_item_path(item.list, item), method: :delete do %>
-                    <p class="delBtn"><i class="fa-solid fa-xmark"></i></p>
-                  <% end %>
-                <% end %>
-
-                <%# reveal text %>
-                <% if @list.article == true %>
-                  <p class="infoBtn"><i class="fa-solid fa-circle-info" data-action="click->edit-item#descBtn"></i>
-                  </p>
-                <% end %>
-              </div>
-
-            </div>
-
-            <%#= rendered update form %>
-            <% if hide_button(@list.user) %>
-              <%= simple_form_for item, html: { id: "sort-form", class: "d-none", data: { edit_item_target: "form", action: "submit->edit-item#update" } } do |f| %>
-                <%= f.input :name, label: false %>
-                <% if @list.article == true %>
-                  <%= f.input :description, label: false %>
-                  <%= f.input :photo, as: :file, label: false, placeholder: "Upload Photo" %>
-                <% end %>
-                <%= f.hidden_field :list_id, value: @list.id %>
-                <%= f.submit "Save", style:"width: 100%" %>
-              <% end %>
-            <% end %>
-
-            <%# ARTICLE VIEW %>
-            <div data-edit-item-target="article">
-              <% if @list.article == true %>
-                <% if item.description == nil || item.description == "" %>
-                  <% if hide_button(@list.user) %>
-                    <em>+ List Description...</em>
-                  <% end %>
-                <% else %>
-                  <p class="li-desc"><%= item.description %></p>
-                  <div class="d-flex justify-content-center list-item-photo-box">
-                    <%= image_tag(item.photo, class: "list-item-photo-card") if item.photo.attached? %>
-                  </div>
-                <% end %>
-              <% end %>
-            </div>
-
-          </div>
-        </li>
-      <% end %>
-      </ul>
+        <% @list.items.each do |item| %>
+          <li class="list-item" data-sortable-id="<%= item.id %>">
+            <%= render "item_infos", item: item, list: @list %>
+          </li>
+        <% end %>
+      </ol>
 
       <%# LIST ITEM FORM %>
         <%= render "list_item_form" %>

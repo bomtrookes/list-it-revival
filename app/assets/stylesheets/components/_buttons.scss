@@ -138,15 +138,6 @@ a.btn.btn-ghost { color: $li-green; }
   outline : none;
   box-shadow: none;
 }
-.my-handle {
-  position : absolute;
-  top : 8px;
-  left : 4px;
-  color : white;
-  span {
-    color : white;
-  }
-}
 
 // "Preview" on a draft list: outlined, so "Publish" stays the main action
 .btn-preview {
