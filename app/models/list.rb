@@ -20,12 +20,13 @@ class List < ApplicationRecord
   include PgSearch::Model
   pg_search_scope :global_search,
     against: [:title],
-      associated_against: {
+    associated_against: {
       user: [:username],
-      tags:[:name]
-  }
+      tags: [:name]
+    },
+    using: { tsearch: { prefix: true, dictionary: "english" } }
 
-  pg_search_scope :search_list, against: [:title], using: { tsearch: { prefix: true } }
+  pg_search_scope :search_list, against: [:title], using: { tsearch: { prefix: true, dictionary: "english" } }
   pg_search_scope :search_tag, associated_against: { tags: [:name] }, using: { tsearch: { prefix: true } }
 
   def self.ordered_published_lists

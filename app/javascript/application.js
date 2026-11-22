@@ -9,3 +9,8 @@ ActiveStorage.start()
 window.bootstrap = bootstrap
 
 import "./controllers"
+
+// Fade flash messages out after a few seconds
+document.querySelectorAll(".alert-dismissible").forEach((el) => {
+  setTimeout(() => bootstrap.Alert.getOrCreateInstance(el).close(), 5000)
+})

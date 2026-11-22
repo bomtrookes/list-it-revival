@@ -8,6 +8,12 @@ require "faker"
 BOSSA_NOVA_ARTISTS = ["João Gilberto", "Antônio Carlos Jobim", "Astrud Gilberto", "Stan Getz", "Nara Leão", "Vinícius de Moraes", "Sérgio Mendes", "Luiz Bonfá", "Baden Powell", "Elis Regina", "Caetano Veloso", "Marcos Valle"].freeze
 BOSSA_NOVA_SONGS = ["The Girl from Ipanema", "Desafinado", "Corcovado", "Chega de Saudade", "Wave", "Águas de Março", "Mas Que Nada", "Samba de Uma Nota Só", "Insensatez", "Manhã de Carnaval", "Garota de Ipanema", "Tristeza"].freeze
 
+# Reuses an existing user with the same username (e.g. Tom's real @bomtrookes admin
+# account), otherwise creates the sample user. Raises if the user can't be saved.
+def sample_user(attrs)
+  User.find_by(username: attrs[:username]) || User.create!(attrs)
+end
+
 def remote_image(url)
   URI.open(url, open_timeout: 10, read_timeout: 20)
 rescue StandardError => e
@@ -18,7 +24,7 @@ end
 
 puts "Creating Users and followers..."
 
-tom = User.create(
+tom = sample_user(
   username: "bomtrookes",
   email: "tom@test.com",
   password: SecureRandom.hex(16),
@@ -26,7 +32,7 @@ tom = User.create(
   bio: Faker::GreekPhilosophers.quote,
 )
 
-nuria = User.create(
+nuria = sample_user(
   username: "nuria",
   email: "nuria@test.com",
   password: SecureRandom.hex(16),
@@ -34,7 +40,7 @@ nuria = User.create(
   bio:  Faker::GreekPhilosophers.quote,
 )
 
-ana = User.create(
+ana = sample_user(
   username: "Athelas85",
   email: "athe@test.com",
   password: SecureRandom.hex(16),
@@ -42,7 +48,7 @@ ana = User.create(
   bio:  Faker::GreekPhilosophers.quote,
 )
 
-tarantino = User.create(
+tarantino = sample_user(
   username: "Tarantino",
   email: "tarantino@test.com",
   password: SecureRandom.hex(16),
@@ -50,7 +56,7 @@ tarantino = User.create(
   bio:  Faker::GreekPhilosophers.quote
 )
 
-foodie1 = User.create(
+foodie1 = sample_user(
   username: "foodie64",
   email: "food1@test.com",
   password: SecureRandom.hex(16),
@@ -58,7 +64,7 @@ foodie1 = User.create(
   bio:  Faker::GreekPhilosophers.quote
 )
 
-foodie2 = User.create(
+foodie2 = sample_user(
   username: "food_lover",
   email: "food2@test.com",
   password: SecureRandom.hex(16),
@@ -66,7 +72,7 @@ foodie2 = User.create(
   bio: Faker::GreekPhilosophers.quote
 )
 
-foodie3 = User.create(
+foodie3 = sample_user(
   username: "FoodistLord",
   email: "food3@test.com",
   password: SecureRandom.hex(16),
@@ -74,7 +80,7 @@ foodie3 = User.create(
   bio: Faker::GreekPhilosophers.quote
 )
 
-foodie4 = User.create(
+foodie4 = sample_user(
   username: "food_only",
   email: "food4@test.com",
   password: SecureRandom.hex(16),
@@ -82,7 +88,7 @@ foodie4 = User.create(
   bio: Faker::GreekPhilosophers.quote
 )
 
-foodie5 = User.create(
+foodie5 = sample_user(
   username: "foodieBoss",
   email: "food5@test.com",
   password: SecureRandom.hex(16),
@@ -90,7 +96,7 @@ foodie5 = User.create(
   bio: Faker::GreekPhilosophers.quote
 )
 
-foodie6 = User.create(
+foodie6 = sample_user(
   username: "FOODMANIAC",
   email: "food6@test.com",
   password: SecureRandom.hex(16),
@@ -98,7 +104,7 @@ foodie6 = User.create(
   bio: Faker::GreekPhilosophers.quote
 )
 
-foodie7 = User.create(
+foodie7 = sample_user(
   username: "foodQueen",
   email: "food7@test.com",
   password: SecureRandom.hex(16),
@@ -182,12 +188,12 @@ students = []
 
 le_wagon_avatars.each do |avatar|
 
-  student = User.create!(
+  student = sample_user(
     {
-      email: Faker::Internet.email,
+      email: Faker::Internet.unique.email,
       password: SecureRandom.hex(16),
       bio: Faker::GreekPhilosophers.quote,
-      username: Faker::Internet.username,
+      username: Faker::Internet.unique.username(specifier: 5..20),
       avatar: "#{avatar}"
     }
   )
@@ -211,9 +217,9 @@ le_wagon_avatars.each do |avatar|
 
 rand(10..20).times do
 
-  user_a = User.create!(
+  user_a = sample_user(
     {
-      email: Faker::Internet.email,
+      email: Faker::Internet.unique.email,
       password: SecureRandom.hex(16),
       bio: Faker::GreekPhilosophers.quote,
       username: "#{Faker::Name.first_name}_#{i}",
@@ -221,21 +227,21 @@ rand(10..20).times do
     }
   )
 
-  user_b = User.create!(
+  user_b = sample_user(
     {
-      email: Faker::Internet.email,
+      email: Faker::Internet.unique.email,
       password: SecureRandom.hex(16),
       bio: Faker::GreekPhilosophers.quote,
-      username: "#{i}_#{Faker::Internet.username}",
+      username: "#{i}_#{Faker::Internet.unique.username(specifier: 5..20)}",
       avatar: "https://xsgames.co/randomusers/assets/avatars/female/#{avatar_id}.jpg"
     }
   )
 
   avatar_id += 1
 
-  user_c = User.create!(
+  user_c = sample_user(
     {
-      email: Faker::Internet.email,
+      email: Faker::Internet.unique.email,
       password: SecureRandom.hex(16),
       bio: Faker::GreekPhilosophers.quote,
       username: "#{Faker::Name.first_name}#{i}",
@@ -273,9 +279,9 @@ end
 
 rand(5..15).times do
 
-  user_a = User.create!(
+  user_a = sample_user(
     {
-      email: Faker::Internet.email,
+      email: Faker::Internet.unique.email,
       password: SecureRandom.hex(16),
       bio: Faker::GreekPhilosophers.quote,
       username: "#{Faker::Name.first_name}_#{i}",
@@ -285,19 +291,19 @@ rand(5..15).times do
 
   avatar_id += 1
 
-  user_b = User.create!(
+  user_b = sample_user(
     {
-      email: Faker::Internet.email,
+      email: Faker::Internet.unique.email,
       password: SecureRandom.hex(16),
       bio: Faker::GreekPhilosophers.quote,
-      username: "#{i}_#{Faker::Internet.username}",
+      username: "#{i}_#{Faker::Internet.unique.username(specifier: 5..20)}",
       avatar: "https://xsgames.co/randomusers/assets/avatars/male/#{avatar_id}.jpg"
     }
   )
 
-  user_c = User.create!(
+  user_c = sample_user(
     {
-      email: Faker::Internet.email,
+      email: Faker::Internet.unique.email,
       password: SecureRandom.hex(16),
       bio: Faker::GreekPhilosophers.quote,
       username: "#{Faker::Name.first_name}#{i}",
@@ -336,9 +342,9 @@ end
 
 rand(6..13).times do
 
-  user_a = User.create!(
+  user_a = sample_user(
     {
-      email: Faker::Internet.email,
+      email: Faker::Internet.unique.email,
       password: SecureRandom.hex(16),
       bio: Faker::GreekPhilosophers.quote,
       username: "#{Faker::Name.first_name}_#{i}",
@@ -346,21 +352,21 @@ rand(6..13).times do
     }
   )
 
-  user_b = User.create!(
+  user_b = sample_user(
     {
-      email: Faker::Internet.email,
+      email: Faker::Internet.unique.email,
       password: SecureRandom.hex(16),
       bio: Faker::GreekPhilosophers.quote,
-      username: "#{i}_#{Faker::Internet.username}",
+      username: "#{i}_#{Faker::Internet.unique.username(specifier: 5..20)}",
       avatar:  "https://xsgames.co/randomusers/assets/avatars/female/#{avatar_id}.jpg"
     }
   )
 
   avatar_id += 1
 
-  user_c = User.create!(
+  user_c = sample_user(
     {
-      email: Faker::Internet.email,
+      email: Faker::Internet.unique.email,
       password: SecureRandom.hex(16),
       bio: Faker::GreekPhilosophers.quote,
       username: "#{Faker::Name.first_name}#{i}",

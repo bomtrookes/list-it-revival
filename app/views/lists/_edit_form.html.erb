@@ -5,8 +5,8 @@
     <%= f.input :title %>
     <%= f.input :tag_list, label: "Add tags", hint: "Add your tags, separated by commas", :input_html => { :class => "css-class", :value => @list.tag_list.join(", ") } %>
     <%= f.input :photo, as: :file %>
-    <%= f.input :article, as: :boolean %>
-    <%= f.submit %>
+    <%= f.input :article, as: :boolean, label: "Article", hint: "Lets you add a description and a photo to each item" %>
+    <%= f.submit "Save changes", class: "btn btn-flat" %>
   <% end %>
 
   <div class="d-flex justify-content-evenly mt-3">

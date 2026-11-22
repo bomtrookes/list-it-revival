@@ -147,3 +147,11 @@ a.btn.btn-ghost { color: $li-green; }
     color : white;
   }
 }
+
+// "Preview" on a draft list: outlined, so "Publish" stays the main action
+.btn-preview {
+  color: $li-green;
+  background: white;
+  border: 1px solid $li-green;
+  &:hover, &:focus { color: white; background: $li-green; }
+}

@@ -154,3 +154,10 @@ ol {
     font-size : 15px;
   }
 }
+
+// New item form: make the name field look like a field
+#new-item #item_name {
+  background-color: $li-light-gray-bg;
+  border-radius: 8px;
+  padding: 10px 12px;
+}

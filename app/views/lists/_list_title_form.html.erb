@@ -8,7 +8,7 @@
               :input_html => { :class => "css-class", :value => @list.tag_list.join(", ") } %>
   <%= f.input :photo, as: :file,
               label: false %>
-  <%= f.input :article, as: :boolean %>
+  <%= f.input :article, as: :boolean, label: "Article", hint: "Lets you add a description and a photo to each item" %>
     <%# <em class="art-info">Want more from your lists? Add images and text to each list item!</em> %>
   <div class="form-actions">
     <%= f.button :submit, "Create", class:"btn-flat" %>

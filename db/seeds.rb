@@ -12,14 +12,11 @@ if ENV["SEED_RESET"] == "1"
   ActiveStorage::Attachment.all.each(&:purge)
 end
 
-if User.where(demo: false).exists?
-  puts "Users already exist, so the sample community is skipped."
+if SampleCommunity.loaded?
+  puts "The sample community is already loaded."
 else
   puts "Loading the sample community (this downloads images and can take a few minutes)..."
-  ActiveRecord::Base.transaction do
-    load Rails.root.join("db/seeds/sample_community.rb")
-    User.update_all(sample: true)
-  end
+  SampleCommunity.load!
 end
 
 admin_email = ENV["ADMIN_EMAIL"].presence || (Rails.env.production? ? nil : "admin@example.com")

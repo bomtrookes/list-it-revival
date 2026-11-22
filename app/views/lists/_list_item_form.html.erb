@@ -12,7 +12,7 @@
       <%= f.input :photo, as: :file, label: false %>
     <% end %>
       <%= f.hidden_field :list_id, value: @list.id %>
-      <%= f.submit "Add Item", style:"width: 100%" %>
+      <%= f.submit "Add item", class: "btn btn-flat w-100 mt-1" %>
     <% end %>
     <% else %>
        <% if hide_button(@list.user) %>
