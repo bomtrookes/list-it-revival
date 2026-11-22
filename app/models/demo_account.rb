@@ -29,6 +29,10 @@ class DemoAccount
   end
 
   def self.reset!
+    SampleCommunity.with_lock { reset_unlocked! }
+  end
+
+  def self.reset_unlocked!
     demo = User.find_or_initialize_by(demo: true)
     demo.assign_attributes(
       username: USERNAME,
@@ -40,22 +44,21 @@ class DemoAccount
     demo.password = SecureRandom.hex(24) # nobody logs in with a password; "Try the demo" signs in directly
     demo.save!
 
-    User.transaction do
-      demo.lists.destroy_all
-      demo.votes.destroy_all
-      demo.favourite_lists.destroy_all
-      Follow.where(follower_id: demo.id).or(Follow.where(followed_id: demo.id)).delete_all
+    demo.lists.destroy_all
+    demo.votes.destroy_all
+    demo.favourite_lists.destroy_all
+    Follow.where(follower_id: demo.id).or(Follow.where(followed_id: demo.id)).delete_all
 
-      STARTER_LISTS.each do |data|
-        list = demo.lists.create!(title: data[:title], published: true, tag_list: data[:tags])
-        data[:items].each { |name, description| list.items.create!(name: name, description: description) }
-      end
-
-      # Follow a handful of active users so the feed has something in it
-      others = User.where(demo: false).joins(:lists).where(lists: { published: true }).distinct.limit(8)
-      others.each { |user| Follow.create!(follower_id: demo.id, followed_id: user.id) }
+    STARTER_LISTS.each do |data|
+      list = demo.lists.create!(title: data[:title], published: true, tag_list: data[:tags])
+      data[:items].each { |name, description| list.items.create!(name: name, description: description) }
     end
+
+    # Follow a handful of active users so the feed has something in it
+    others = User.where(demo: false).joins(:lists).where(lists: { published: true }).distinct.limit(8)
+    others.each { |user| Follow.create!(follower_id: demo.id, followed_id: user.id) }
 
     demo
   end
+  private_class_method :reset_unlocked!
 end

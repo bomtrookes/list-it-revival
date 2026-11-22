@@ -6,9 +6,22 @@ class SampleCommunity
     User.where(sample: true).exists?
   end
 
-  def self.load!
-    existing_ids = User.pluck(:id)
+  # Loading the samples and resetting the demo both write tags. Running them at the
+  # same time (e.g. the demo-reset container kicking in mid-load) deadlocks Postgres,
+  # so both take the same advisory lock and wait for each other instead.
+  LOCK_KEY = 5_478_271
+
+  def self.with_lock
     ActiveRecord::Base.transaction do
+      ActiveRecord::Base.connection.execute("SELECT pg_advisory_xact_lock(#{LOCK_KEY})")
+      yield
+    end
+  end
+
+  def self.load!
+    with_lock do
+      return if loaded? # someone else finished loading while we waited
+      existing_ids = User.pluck(:id)
       load Rails.root.join("db/seeds/sample_community.rb")
       User.where.not(id: existing_ids).where(admin: false, demo: false).update_all(sample: true)
     end
