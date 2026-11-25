@@ -19,14 +19,14 @@ $li-text: #f2f2f2;         // main text
 $li-accent: #a3b18a;       // sage: links, active tabs, buttons (on dark)
 $li-accent-hover: #b6c3a0;
 $li-accent-tint: #2c3326;  // sage chip background (tags, rank badges)
-$li-accent-deep: #56684a;  // darker sage for text and outlines on light cards
+$li-accent-deep: #435238;  // darker sage for text and outlines on light cards
 
 $li-card-light: #f2f2f0;   // welcome, login and new list cards
-$li-card-light-bg: rgba($li-card-light, .9); // a little see-through on the dark page
-$li-card-light-line: #dcdcd6;
+$li-card-light-bg: rgba($li-card-light, .8); // see-through on the dark page
+$li-card-light-line: rgba(255, 255, 255, .25);
 $li-card-light-text: #434343;
-$li-card-light-muted: #6b6b6b;
-$li-card-light-tint: #dfe5d5;  // sage chip on light cards
+$li-card-light-muted: #4a4a4a;
+$li-card-light-tint: rgba($li-accent, .35);  // sage chip on light cards
 
 $li-gray: #a7a7a7;         // secondary text
 $li-dark-gray: #e6e6e6;    // titles (was dark grey on white)

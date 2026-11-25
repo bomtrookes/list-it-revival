@@ -30,8 +30,8 @@
   .fa-xmark, .fa-circle-info { color: #9a9a9a; }
 
   .form-control {
-    background-color: #fff;
-    border-color: $li-card-light-line;
+    background-color: rgba(255, 255, 255, .7);
+    border-color: rgba(0, 0, 0, .12);
     color: #222;
   }
 }
