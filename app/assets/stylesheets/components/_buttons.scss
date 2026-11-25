@@ -149,3 +149,30 @@ a.btn.btn-ghost { color: $li-accent; }
   border: 1px solid $li-accent;
   &:hover, &:focus { color: $li-ink; background: $li-accent; }
 }
+
+// Call-to-action buttons: bold text and a 2px border so they stand out
+// on the dark page and on the light cards.
+.btn-flat, .btn-follow, .btn-publish, .btn-search, .btn-success,
+.btn-ghost, .btn-preview, .btn-ghoul {
+  font-weight: 700;
+  border-width: 2px !important;
+  border-style: solid !important;
+  letter-spacing: .01em;
+}
+.btn-flat, .btn-follow, .btn-publish, .btn-search, .btn-success {
+  border-color: $li-accent !important;
+}
+a.btn.btn-flat:hover, input.btn.btn-flat:hover, .btn-follow:hover, .btn-publish:hover, .btn-search:hover {
+  border-color: $li-accent-hover !important;
+}
+
+// On the light cards the solid buttons use the darker sage with white
+// text, which reads more clearly than pale sage on pale grey.
+.welcome-card, .card {
+  .btn-flat, a.btn.btn-flat, input.btn.btn-flat, .btn-follow, a.btn.btn-follow, .btn-publish, .btn-search {
+    background: $li-accent-deep;
+    border-color: $li-accent-deep !important;
+    color: #fff;
+    &:hover, &:focus { background: darken($li-accent-deep, 6%); border-color: darken($li-accent-deep, 6%) !important; color: #fff; }
+  }
+}

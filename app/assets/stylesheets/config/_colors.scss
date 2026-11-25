@@ -22,6 +22,7 @@ $li-accent-tint: #2c3326;  // sage chip background (tags, rank badges)
 $li-accent-deep: #56684a;  // darker sage for text and outlines on light cards
 
 $li-card-light: #f2f2f0;   // welcome, login and new list cards
+$li-card-light-bg: rgba($li-card-light, .9); // a little see-through on the dark page
 $li-card-light-line: #dcdcd6;
 $li-card-light-text: #434343;
 $li-card-light-muted: #6b6b6b;

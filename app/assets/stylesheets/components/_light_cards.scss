@@ -2,7 +2,7 @@
 // very light grey on the dark page, like the welcome card. Sage text gets
 // the darker shade here so it stays readable on the light surface.
 .card, .stats, .list-card-info {
-  background-color: $li-card-light !important;
+  background-color: $li-card-light-bg !important;
   border: 1px solid $li-card-light-line;
   color: $li-card-light-text;
   --bs-body-color: #{$li-card-light-text};
