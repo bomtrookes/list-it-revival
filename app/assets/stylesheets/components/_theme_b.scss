@@ -1,0 +1,139 @@
+// Option B: a social feed look (Reddit's list-of-posts structure, Instagram's
+// photo-first cards). Dark charcoal with clearly raised surfaces, pill
+// shaped controls, sage as the brand colour and coral for likes.
+$b-page: #1c1d21;
+$b-bar: rgba(22, 23, 26, .86);
+$b-surface: #2a2c32;
+$b-surface-2: #33363d;
+$b-line: #3a3d44;
+$b-text: #eef0f3;
+$b-muted: #a3a7af;
+$b-sage: #b4c39a;
+$b-sage-ink: #1c1d21;
+$b-sage-tint: rgba(180, 195, 154, .16);
+$b-like: #ff6b81;
+
+html, body, .home-card, .home-card-login, .discover-header { background-color: $b-page !important; }
+body { color: $b-text; --bs-body-bg: #{$b-page}; --bs-body-color: #{$b-text}; }
+
+// Bars: frosted, with a hairline
+.navbar-lewagon, .bottom-navbar {
+  background: $b-bar;
+  -webkit-backdrop-filter: saturate(160%) blur(14px);
+  backdrop-filter: saturate(160%) blur(14px);
+}
+.navbar-lewagon { border-bottom: 1px solid rgba(255,255,255,.06); }
+.bottom-navbar { border-top: 1px solid rgba(255,255,255,.06); box-shadow: none; }
+.bottom-nav-link {
+  color: $b-muted;
+  svg, i { font-size: 21px; transition: transform .15s ease; }
+  &.active {
+    color: $b-sage;
+    svg, i { transform: translateY(-1px) scale(1.08); }
+  }
+}
+
+// All cards: raised charcoal surfaces
+.card, .stats, .list-card-info, .welcome-card {
+  background-color: $b-surface !important;
+  border: 1px solid $b-line !important;
+  border-radius: 16px !important;
+  color: $b-text;
+  box-shadow: 0 1px 0 rgba(255,255,255,.03) inset, 0 6px 18px rgba(0,0,0,.25);
+  --bs-body-color: #{$b-text};
+  --bs-secondary-color: #{$b-muted};
+  a { color: $b-sage; }
+  h1, h2, h3, h4, h5, h6, .card-title, .card-link, .card-link a, .text1, .text3 { color: $b-text; }
+  .text2, .text4, .c-details span, .datestamp-italic, .username-italic, small, em, p { color: $b-muted; }
+  .tag span, .tag-show span { background: $b-sage-tint; color: $b-sage; a { color: $b-sage; } }
+  .my-handle, .list-drag-handle { color: $b-muted !important; }
+  .fa-xmark, .fa-circle-info { color: $b-muted; }
+  .form-control {
+    background-color: $b-page;
+    border: 1px solid $b-line;
+    border-radius: 12px;
+    color: $b-text;
+    &::placeholder { color: $b-muted; }
+  }
+  .form-control:focus { border-color: $b-sage !important; box-shadow: 0 0 0 3px rgba(180,195,154,.2) !important; }
+  .form-check-input { background-color: $b-page; border-color: $b-line; }
+  .form-check-input:checked { background-color: $b-sage; border-color: $b-sage; }
+}
+.welcome-card {
+  padding: 24px;
+  h1, h3 { font-weight: 700; }
+  input[type="file"].form-control::file-selector-button { background: $b-surface-2; color: $b-sage; }
+}
+
+// Buttons: pills
+.btn-flat, .btn-follow, .btn-publish, .btn-search, .btn-success, .btn-ghost, .btn-preview, .btn-ghoul {
+  border-radius: 999px !important;
+  font-weight: 700;
+}
+.btn-flat, .btn-follow, .btn-publish, .btn-search, .btn-success,
+.welcome-card .btn-flat, .welcome-card a.btn.btn-flat, .welcome-card input.btn.btn-flat,
+.card .btn-follow, .card a.btn.btn-follow {
+  background: $b-sage !important;
+  border-color: $b-sage !important;
+  color: $b-sage-ink !important;
+  &:hover, &:focus { background: lighten($b-sage, 6%) !important; border-color: lighten($b-sage, 6%) !important; }
+}
+.btn-ghost, a.btn.btn-ghost, .welcome-card .btn-ghost, .welcome-card a.btn.btn-ghost, .btn-preview {
+  background: transparent !important;
+  color: $b-sage !important;
+  border-color: $b-sage !important;
+  &:hover, &:focus { background: $b-sage-tint !important; color: $b-sage !important; }
+}
+.btn-search { border-radius: 0 999px 999px 0 !important; }
+
+// Search bar
+#form1.form-control {
+  background: $b-surface;
+  border: 1px solid $b-line;
+  border-radius: 999px 0 0 999px;
+  color: $b-text;
+  padding-left: 18px;
+}
+
+// Discover tabs: segmented pill control
+.discover-tabs {
+  ul { background: $b-surface; border: 1px solid $b-line; border-radius: 999px; padding: 4px; margin: 10px 0 14px; }
+  li { flex: 1; padding: 0; display: block !important; }
+  p { width: 100%; text-align: center; padding: 6px 0; border-radius: 999px; font-size: 14px; font-weight: 600; color: $b-muted; cursor: pointer; }
+  .active-tab, .active-search { background: $b-sage; color: $b-sage-ink !important; }
+}
+
+// Profile: open stats, no box
+.profile-info.stats, .stats {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  a { color: $b-text !important; font-size: 20px !important; font-weight: 700; }
+  p { color: $b-muted !important; }
+}
+.profile-nav { border-color: $b-line !important; i { color: $b-muted; } .active-tab, .active-tab i { color: $b-sage !important; } }
+.avatar-profile { border: 2px solid $b-sage; padding: 2px; background: $b-page; }
+
+// Ranked items on a list
+.item-card {
+  background: $b-surface !important;
+  .list-item-title { color: $b-text; }
+  .item-rank { background: $b-sage-tint; color: $b-sage; }
+  .item-actions .infoBtn, .item-actions .delBtn { color: $b-muted; }
+  .item-actions .infoBtn.info-active, .item-actions .infoBtn:hover { color: $b-sage; }
+  .add-desc-hint, .li-desc { color: $b-muted; }
+  #item_name, #item_description { color: $b-text; }
+}
+.list-item:nth-child(1) .item-card .item-rank { background: $b-sage; color: $b-sage-ink; }
+.tag-show span { background: $b-sage-tint; color: $b-sage; border-radius: 999px; a { color: $b-sage; } }
+
+// Flash messages
+.alert {
+  background: $b-surface-2;
+  color: $b-text;
+  border: 1px solid $b-line;
+  border-left: 4px solid $b-sage;
+  border-radius: 14px;
+  .btn-close { filter: invert(1) grayscale(1); }
+}
+.alert-warning { border-left-color: $b-like; }

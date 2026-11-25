@@ -1,0 +1,45 @@
+<%# Option B list post: header (who + when + tag), cover photo, title, top 3 preview, action row %>
+<% items = list.items.to_a %>
+<% likes = list.votes.size %>
+<article class="post-card">
+  <header class="post-head">
+    <%= link_to list.user, class: "post-author" do %>
+      <span class="post-avatar"><%= image_tag list.user.avatar, alt: "", loading: "lazy" if list.user.avatar.present? %></span>
+      <span class="post-username"><%= format_username(list.user.username) %></span>
+    <% end %>
+    <span class="post-time">· <%= time_ago_in_words(list.created_at).sub(/^about /, "").sub(/^less than a minute/, "now") %></span>
+    <% if list.tags.present? %>
+      <%= link_to format_tag(list.tags.first.to_s), tagged_path(tag: list.tags.first.name), class: "post-tag" %>
+    <% end %>
+  </header>
+
+  <%= link_to user_list_path(list.user, list), class: "post-body" do %>
+    <% if list.photo.attached? %>
+      <div class="post-cover"><%= image_tag photo_url(list.photo), alt: "", loading: "lazy" %></div>
+    <% end %>
+    <h2 class="post-title">
+      <%= list.title %>
+      <% if list.article %><i class="fa-solid fa-paperclip post-article" title="Article"></i><% end %>
+    </h2>
+    <% if items.any? %>
+      <ol class="post-preview">
+        <% items.first(3).each_with_index do |item, i| %>
+          <li><span class="post-rank"><%= i + 1 %></span><span class="post-item"><%= item.name %></span></li>
+        <% end %>
+      </ol>
+      <% if items.size > 3 %>
+        <p class="post-more">+ <%= items.size - 3 %> more</p>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <footer class="post-actions">
+    <span class="post-action <%= 'is-on' if current_user && list.votes.any? { |v| v.user_id == current_user.id } %>">
+      <i class="fa-solid fa-heart"></i> <%= likes %>
+    </span>
+    <span class="post-action"><i class="fa-solid fa-list-ol"></i> <%= items.size %></span>
+    <%= link_to user_list_path(list.user, list), class: "post-action post-open" do %>
+      Open <i class="fa-solid fa-arrow-right"></i>
+    <% end %>
+  </footer>
+</article>
