@@ -7,7 +7,13 @@
   max-width: 480px;
   margin-left: auto;
   z-index: 1000;
+  background: $li-card-light;
+  color: $li-card-light-text;
+  border: 0;
+  border-left: 4px solid $li-accent-deep;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.45);
 }
+.alert-warning { border-left-color: $li-red; }
 
 .share-links a { color: $li-accent; }
 .share-links a:hover { color: $li-accent-hover; }
