@@ -29,9 +29,9 @@
           <tr>
             <td>
               <%= link_to format_username(user.username), user_path(user) %>
-              <% if user.admin? %><span class="badge bg-success ms-1">admin</span><% end %>
+              <% if user.admin? %><span class="badge text-bg-primary ms-1">admin</span><% end %>
               <% if user.demo? %><span class="badge bg-secondary ms-1">demo</span><% end %>
-              <% if user.sample? %><span class="badge bg-light text-muted ms-1">sample</span><% end %>
+              <% if user.sample? %><span class="badge text-bg-dark ms-1">sample</span><% end %>
             </td>
             <td class="d-none d-md-table-cell"><%= user.email %></td>
             <td><%= user.lists.size %></td>

@@ -4,7 +4,8 @@
   left : 0;
   width : 100%;
   justify-content: space-between;
-  background: $li-green;
+  background: $li-bar;
+  border-bottom: 1px solid $li-line;
   height : calc(50px + env(safe-area-inset-top));
   padding-top: env(safe-area-inset-top);
   a {

@@ -15,7 +15,7 @@ class ListsController < ApplicationController
       search_tags = ActsAsTaggableOn::Tag.where("name ILIKE ?", "#{params[:query]}%")
       @search_tags = search_tags.sort_by {|tag| tagged_lists(tag).size }.reverse!
     else
-      @top_lists = List.ordered_published_lists
+      @top_lists = List.ordered_published_lists.includes(:user, :items, :votes, :tags, photo_attachment: :blob)
       @search_lists = []
       @search_users = []
       @search_tags = []

@@ -2,24 +2,41 @@
 // 1. All Bootstrap variables are here => https://github.com/twbs/bootstrap/blob/master/scss/_variables.scss
 // 2. These variables are defined with default value (see https://robots.thoughtbot.com/sass-default)
 // 3. You can override them below!
+// The page runs in Bootstrap's dark colour mode (data-bs-theme="dark" on <html>).
 
 // General style
 $font-family-sans-serif:  $body-font;
 $headings-font-family:    $headers-font;
-$body-bg:                 $light-gray;
 $font-size-base: 1rem;
 
 // Colors
-$body-color: $gray;
-$primary:    $blue;
+$primary:    $li-accent;
 $success:    $green;
 $info:       $yellow;
 $danger:     $red;
 $warning:    $orange;
 
+// Dark mode palette
+$body-bg-dark:            $li-page;
+$body-color-dark:         $li-text;
+$body-secondary-color-dark: $li-gray;
+$body-secondary-bg-dark:  $li-panel-2;
+$body-tertiary-bg-dark:   $li-panel;
+$body-emphasis-color-dark: #fff;
+$border-color-dark:       $li-line;
+$headings-color-dark:     $li-text;
+$link-color-dark:         $li-accent;
+$link-hover-color-dark:   $li-accent-hover;
+$card-bg:                 $li-panel;
+$input-bg:                $li-panel-2;
+$input-color:             $li-text;
+$input-border-color:      $li-line;
+$input-placeholder-color: $li-gray;
+$form-select-bg:          $li-panel-2;
+$modal-content-bg:        $li-panel;
+$dropdown-bg:             $li-panel;
+
 // Buttons & inputs' radius
 $border-radius:    2px;
 $border-radius-lg: 2px;
 $border-radius-sm: 2px;
-
-// Override other variables below!

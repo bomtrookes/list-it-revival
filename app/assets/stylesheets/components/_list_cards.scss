@@ -11,7 +11,7 @@
 }
 
 .list-card-info {
-  background-color: #f1f1f1;
+  background-color: $li-panel;
   border-radius: 8px;
 }
 .list-title-user {
@@ -25,7 +25,7 @@
 
 .username-italic {
     font-size : 14px;
-    color : rgb(165, 163, 163);
+    color : $li-gray;
     font-style: italic;
 }
 
@@ -43,7 +43,7 @@
 
 .datestamp-italic {
   font-size : 11px;
-  color : rgb(165, 163, 163);
+  color : $li-gray;
   font-style: italic;
 }
 
@@ -78,12 +78,13 @@ ol {
 //  NURIA LIST CARD
 
 .card {
-  border: none;
+  border: 1px solid $li-line;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  background-color: $li-panel;
+  box-shadow: none;
   a {
     text-decoration: none;
-    color: $li-green;
+    color: $li-accent;
   }
 }
 
@@ -104,7 +105,7 @@ ol {
   margin-left: 10px;
   a {
     text-decoration: none;
-    color: $li-green;
+    color: $li-accent;
   }
 }
 
@@ -113,20 +114,20 @@ ol {
 }
 
 .tag span {
-  background-color: rgba(127, 200, 169, 0.3);
+  background-color: $li-accent-tint;
   width: 100%;
   font-size: 12px;
   padding: 5px 10px;
   border-radius: 5px;
   display: flex;
-  color: $li-green;
+  color: $li-accent;
   justify-content: center;
   align-items: center
 }
 
 .tag span a {
   text-decoration: none;
-  color: $li-green;
+  color: $li-accent;
 }
 
 .text1 {
@@ -153,16 +154,16 @@ ol {
 }
 
 .card-link {
-  color: #4A4A4A;
+  color: $li-text;
   a {
     text-decoration: none;
-    color: #4A4A4A;
+    color: $li-text;
   }
 }
 
 .card-link a {
   text-decoration: none;
-  color: #4A4A4A;
+  color: $li-text;
 }
 
 .card-photo-title {
@@ -193,7 +194,7 @@ ol {
   padding: 0px 15px;
   margin: 0;
   align-items: center;
-  color: $li-gray;
+  color: $li-dark-gray;
   font-size: 24px;
   font-weight: bold;
   text-align: center;
