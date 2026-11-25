@@ -9,11 +9,12 @@ $light-gray: #F4F4F4;
 
 // List-It colour scheme: ReelScore's dark panels (cinefix components/_navbar.scss)
 // with List-It's own sage accent, and light grey cards for welcome/login/new list.
-$li-ink: #161616;          // page background, text on sage
+$li-ink: #161616;          // text on sage
+$li-page: #262626;         // page background (a touch lighter than ReelScore)
 $li-bar: #181818;          // top bar, bottom bar
-$li-panel: #222222;        // cards
-$li-panel-2: #2b2b2b;      // inputs, inner panels
-$li-line: #3a3a3a;         // borders, dividers
+$li-panel: #303030;        // cards
+$li-panel-2: #363636;      // inputs, inner panels
+$li-line: #444444;         // borders, dividers
 $li-text: #f2f2f2;         // main text
 
 $li-accent: #a3b18a;       // sage: links, active tabs, buttons (on dark)
