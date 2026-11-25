@@ -1,26 +1,31 @@
-// Define variables for your color scheme
-
-// For example:
+// Bootstrap base colours (used in bootstrap_variables)
 $red: #FD1015;
 $blue: #0D6EFD;
 $yellow: #FFC65A;
 $orange: #E67E22;
-$green: #4A4A4A;
+$green: #4caf7a;
 $gray: #0E0000;
 $light-gray: #F4F4F4;
 
+// List-It colour scheme: dark panels and gold accent, shared with ReelScore
+// (cinefix components/_navbar.scss and pages/_feed.scss).
+$li-ink: #161616;          // page background, text on gold
+$li-bar: #181818;          // top bar, bottom bar
+$li-panel: #222222;        // cards
+$li-panel-2: #2b2b2b;      // inputs, inner panels
+$li-line: #3a3a3a;         // borders, dividers
+$li-text: #f2f2f2;         // main text
 
-// list-it color scheme
-$li-green: #7FC8A9;
-$li-green-shadow: #6dc09e;
-$li-light-green: #CDF0EA;
+$li-accent: #f2b632;       // gold: links, active tabs, buttons
+$li-accent-hover: #ffc94d;
+$li-accent-tint: #3a3020;  // gold chip background (tags, rank badges)
 
-$li-light-gray: #d3d3d3;
-$li-light-gray-bg: #f4f4f4;
-$li-gray: #808080;
-$li-dark-gray: #434343;
+$li-gray: #a7a7a7;         // secondary text
+$li-dark-gray: #e6e6e6;    // titles (was dark grey on white)
+$li-light-gray: #6b6b6b;   // faint icons
+$li-light-gray-bg: #2b2b2b;
 
-$li-blue: #0046b9;
-$li-light-blue: #b0c4de;
+$li-blue: #f2b632;         // the old blue accents follow the gold
+$li-light-blue: #6b6b6b;
 
 $li-red: #F94C66;

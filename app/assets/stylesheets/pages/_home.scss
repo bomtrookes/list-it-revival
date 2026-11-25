@@ -1,13 +1,14 @@
 // Specific CSS for your home-page
 html {
-  background-color: $li-green;
+  background-color: $li-bar;
 }
 
 body {
   height: 100%;
   width: 100vw;
   // overscroll-behavior: none;
-  background-color: white;
+  background-color: $li-ink;
+  color: $li-text;
   overflow-x: hidden;
   &::-webkit-scrollbar {
     display: none;
@@ -15,7 +16,7 @@ body {
 }
 
 .home-card {
-  background-color: $li-green;
+  background-color: $li-ink;
   height: 100vh;
   text-align: center;
   padding: 50px 20px;
@@ -30,7 +31,7 @@ body {
 }
 
 .home-card-login {
-  background-color: $li-green;
+  background-color: $li-ink;
   height: 20vh;
   text-align: center;
   padding: 50px 20px;
@@ -43,7 +44,7 @@ body {
   height: 15vh;
   padding-top: 40px;
   text-align: center;
-  background-color: $li-green;
+  background-color: $li-bar;
 }
 // padding top and bottom
 .pad {
@@ -79,7 +80,7 @@ body {
   right : 0;
   padding-right : 6px;
   font-size: 16px;
-  color : lightgray;
+  color : $li-gray;
 }
 
 // * {
@@ -103,6 +104,6 @@ body {
   margin: 48px auto 0;
   max-width: 320px;
   color: $li-gray;
-  svg, i { font-size: 40px; color: $li-green; }
+  svg, i { font-size: 40px; color: $li-accent; }
   h2 { color: $li-dark-gray; }
 }

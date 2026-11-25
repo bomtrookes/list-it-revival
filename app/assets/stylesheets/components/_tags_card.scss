@@ -12,20 +12,20 @@
 
 .tag-card-info {
   border-radius: 8px;
-  color: $li-green;
+  color: $li-accent;
 }
 .tag-name {
   padding-left : 8px;
-  color: $li-green;
+  color: $li-accent;
 }
 
 .tag-name a {
   text-decoration: none !important;
-  color: $li-green;
+  color: $li-accent;
 }
 
 .tag-show span {
-  background-color: rgba(127, 200, 169, 0.3);
+  background-color: $li-accent-tint;
   width: 100%;
   font-size: 14px;
   padding: 5px 10px;
@@ -33,12 +33,12 @@
   margin-right: 5px;
   margin-bottom: 0;
   display: flex;
-  color: $li-green;
+  color: $li-accent;
   justify-content: center;
   align-items: center
 }
 
 .tag-show span a {
   text-decoration: none;
-  color: $li-green;
+  color: $li-accent;
 }

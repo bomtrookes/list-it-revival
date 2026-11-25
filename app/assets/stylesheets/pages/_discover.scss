@@ -4,13 +4,13 @@
     margin: 0;
   }
   .active-search {
-    color : $li-green;
+    color : $li-accent;
     text-decoration: none;
   }
 }
 
 .discover-tabs {
-  background-color: white;
+  background-color: transparent;
   ul {
     list-style: none;
     margin : 0;
@@ -38,7 +38,7 @@
 }
 
 .active-tab {
-  color : $li-green;
+  color : $li-accent;
 }
 
 #no-results {

@@ -2,7 +2,7 @@
     padding : 0;
     margin : none;
   a {
-    color : black;
+    color : $li-text;
     padding-left : 8px;
   }
   li {
@@ -10,7 +10,7 @@
   }
 }
 .back-button {
-  color : rgb(131, 131, 131);
+  color : $li-gray;
   font-size : 24px;
   font-weight : bold;
   text-decoration : none;

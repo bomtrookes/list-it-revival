@@ -2,15 +2,15 @@
   background-color: $li-blue;
 }
 .btn-success {
-  background-color: $li-green;
-  color : white;
+  background-color: $li-accent;
+  color : $li-ink;
 }
 .btn-ghost {
-  color: $li-green;
-  border: 1px solid $li-green;
+  color: $li-accent;
+  border: 1px solid $li-accent;
   padding: 8px 24px;
   border-radius: 4px;
-  background-color: white;
+  background-color: transparent;
   transition: opacity 0.3s ease;
   font-size: 16px;
 }
@@ -20,11 +20,11 @@
   border: 1px solid $li-blue;
   padding: 6px 22px;
   border-radius: 50px;
-  background-color: white;
+  background-color: transparent;
   font-size: 16px;
 }
 .btn-ghoul-active {
-  color : white;
+  color : $li-ink;
 }
 
 .back-button {
@@ -32,10 +32,11 @@
 }
 
 .btn-flat {
-  color: white;
+  color: $li-ink;
+  font-weight: 600;
   padding: 8px 24px;
   border-radius: 4px;
-  background: $li-green;
+  background: $li-accent;
   transition: background 0.3s ease;
 }
 
@@ -55,28 +56,30 @@
 }
 
 .btn-follow {
-  color: white;
+  color: $li-ink;
+  font-weight: 600;
   padding: 4px 0px;
   border-radius: 4px;
   width: 100%;
-  background: $li-green;
+  background: $li-accent;
   transition: background 0.3s ease;
 }
 
 .btn-publish {
-  background: $li-green;
-  color: white;
+  background: $li-accent;
+  color: $li-ink;
 }
 
-a.btn.btn-follow, a.btn.btn-publish, a#btn.btn-publish, button.btn.btn-search  { color: #fff; }
-a.btn.btn-flat, input.btn.btn-flat { color: #fff;}
-a.btn.btn-ghost { color: $li-green; }
+a.btn.btn-follow, a.btn.btn-publish, a#btn.btn-publish, button.btn.btn-search  { color: $li-ink; }
+a.btn.btn-flat, input.btn.btn-flat { color: $li-ink;}
+a.btn.btn-flat:hover, input.btn.btn-flat:hover, .btn-follow:hover, .btn-publish:hover, .btn-search:hover { background: $li-accent-hover; color: $li-ink; }
+a.btn.btn-ghost { color: $li-accent; }
 
 // to avoid forms to have a blue border
 .form-control:focus {
   outline: none !important;
-  border: 1px solid $li-green !important;
-  box-shadow: 0 0 3px $li-green !important;
+  border: 1px solid $li-accent !important;
+  box-shadow: 0 0 0 2px rgba($li-accent, .25) !important;
 }
 
 // remove blue border from buttons
@@ -90,7 +93,7 @@ a.btn.btn-ghost { color: $li-green; }
   outline: none !important;
   box-shadow: none;
   border-color: transparent;
-  border: 1px solid $li-green;
+  border: 1px solid $li-accent;
 }
 
 .btn-alert {
@@ -106,9 +109,9 @@ a.btn.btn-ghost { color: $li-green; }
 }
 
 .btn-search {
-  color: white;
+  color: $li-ink;
   padding: 8px 24px;
-  background: $li-green;
+  background: $li-accent;
   transition: background 0.3s ease;
 }
 
@@ -120,7 +123,7 @@ a.btn.btn-ghost { color: $li-green; }
   font-size : 18px;
 }
 .btn-selected {
-  color : $li-green;
+  color : $li-accent;
 }
 
 #follow-btn {
@@ -131,8 +134,8 @@ a.btn.btn-ghost { color: $li-green; }
   }
 }
 .primary-active {
-  background-color: $li-light-blue;
-  color: $li-blue;
+  background-color: $li-accent;
+  color: $li-ink;
 }
 .btn:focus {
   outline : none;
@@ -141,8 +144,8 @@ a.btn.btn-ghost { color: $li-green; }
 
 // "Preview" on a draft list: outlined, so "Publish" stays the main action
 .btn-preview {
-  color: $li-green;
-  background: white;
-  border: 1px solid $li-green;
-  &:hover, &:focus { color: white; background: $li-green; }
+  color: $li-accent;
+  background: transparent;
+  border: 1px solid $li-accent;
+  &:hover, &:focus { color: $li-ink; background: $li-accent; }
 }

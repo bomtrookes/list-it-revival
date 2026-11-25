@@ -8,8 +8,9 @@ $bottom-nav-height: 64px;
   left: 0;
   right: 0;
   z-index: 10;
-  background: $li-green;
-  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
+  background: $li-bar;
+  border-top: 1px solid $li-line;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.3);
   padding-bottom: env(safe-area-inset-bottom);
 
   ul {
@@ -31,17 +32,17 @@ $bottom-nav-height: 64px;
   justify-content: center;
   gap: 4px;
   height: 100%;
-  color: rgba(255, 255, 255, 0.8);
+  color: $li-gray;
   text-decoration: none;
   border-radius: 12px;
   transition: color 0.15s ease, background 0.15s ease;
 
   svg, i { font-size: 22px; }
 
-  &:hover, &:focus-visible { color: white; background: rgba(255, 255, 255, 0.12); }
+  &:hover, &:focus-visible { color: white; background: rgba(255, 255, 255, 0.06); }
 
   &.active {
-    color: white;
+    color: $li-accent;
     .bottom-nav-label { font-weight: 700; }
   }
 }

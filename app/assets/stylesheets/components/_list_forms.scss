@@ -9,7 +9,7 @@
   color : $li-light-gray;
 }
 .selected {
-  color : $li-green;
+  color : $li-accent;
   font-weight : bold;
 }
 .list-details-bottom {
@@ -34,9 +34,9 @@ ol {
 //   font-size: 30px;
 // }
 .fa-circle-check {
-  color : $li-green;
+  color : $li-accent;
   font-size : 40px;
-  background-color: white;
+  background-color: $li-ink;
   border-radius: 50%;
 }
 .fa-ellipsis-vertical {
@@ -49,7 +49,7 @@ ol {
   font-size: 16px;
 }
 .btn-ghost {
-  background-color: white;
+  background-color: transparent;
   opacity : 1;
 }
 .form-check-label {
@@ -64,7 +64,7 @@ ol {
 // published / created at
 #create-info {
   width : 100%;
-  border-top : 1px rgba(210, 208, 208, 0.7) solid;
+  border-top : 1px $li-line solid;
   margin-top : 4px;
   em {
     color : $li-gray;
@@ -73,7 +73,7 @@ ol {
   }
 }
 .user-pin-vote {
-  border-bottom : 1px solid lightgrey;
+  border-bottom : 1px solid $li-line;
   a {
     font-size : 20px;
     color : $li-gray;
@@ -95,13 +95,13 @@ ol {
   margin-bottom: 10px;
   border-radius: 12px;
   &.ghost { opacity: 0.4; }
-  &.sortable-chosen .item-card { box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12); }
+  &.sortable-chosen .item-card { box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); }
 }
 .item-card {
   padding: 10px 10px 10px 12px;
-  border: 1px solid #ececec;
+  background: $li-panel;
+  border: 1px solid $li-line;
   border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 .item-rank {
   flex: 0 0 auto;
@@ -112,13 +112,13 @@ ol {
   height: 30px;
   margin-right: 10px;
   border-radius: 50%;
-  background: $li-light-green;
-  color: darken($li-green, 25%);
+  background: $li-accent-tint;
+  color: $li-accent;
   font-weight: 700;
   font-size: 15px;
   &::before { content: counter(rank); }
 }
-.list-item:nth-child(1) .item-rank { background: $li-green; color: white; }
+.list-item:nth-child(1) .item-rank { background: $li-accent; color: $li-ink; }
 .list-item-title {
   flex: 1 1 auto;
   min-width: 0;
@@ -149,7 +149,7 @@ ol {
     font-size: 16px;
   }
   .delBtn:hover, .delBtn:focus { color: $li-red; }
-  .infoBtn.info-active, .infoBtn:hover { color: $li-green; }
+  .infoBtn.info-active, .infoBtn:hover { color: $li-accent; }
   .delBtn svg { padding-right: 0; }
 }
 .my-handle, .list-drag-handle {
@@ -190,8 +190,8 @@ input[type="file"].form-control {
   font-size: 14px;
   border-radius: 8px;
   &::file-selector-button {
-    background: $li-light-green;
-    color: darken($li-green, 30%);
+    background: $li-accent-tint;
+    color: $li-accent;
     border: 0;
     margin-right: 10px;
   }
@@ -202,7 +202,7 @@ input[type="file"].form-control {
   color: $li-red;
 }
 #list-user {
-  color : $li-green;
+  color : $li-accent;
   padding-left: 4px;
   font-size: 17px;
 }
@@ -224,7 +224,7 @@ input[type="file"].form-control {
   padding-right : 4px;
   font-style: italic;
   font-size : 14px;
-  color : rgb(0, 70, 185);
+  color : $li-accent;
 }
 // update form
 #new-list {
