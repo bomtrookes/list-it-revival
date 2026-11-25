@@ -39,8 +39,9 @@
 }
 
 .stats{
-  background: $li-panel !important;
-  border: 1px solid $li-line;
+  background: $li-card-light !important;
+  border: 1px solid $li-card-light-line;
+  p, a, i { color: $li-card-light-muted; }
   border-radius: 8px;
 }
 

@@ -1,0 +1,53 @@
+// Content cards (list cards, ranked items, user rows, profile stats) are
+// very light grey on the dark page, like the welcome card. Sage text gets
+// the darker shade here so it stays readable on the light surface.
+.card, .stats, .list-card-info {
+  background-color: $li-card-light !important;
+  border: 1px solid $li-card-light-line;
+  color: $li-card-light-text;
+  --bs-body-color: #{$li-card-light-text};
+  --bs-secondary-color: #{$li-card-light-muted};
+  --bs-emphasis-color: #222;
+  --bs-heading-color: #222;
+  --bs-border-color: #{$li-card-light-line};
+
+  a { color: $li-accent-deep; }
+  h1, h2, h3, h4, h5, h6 { color: #222; }
+
+  .card-title { color: #2b2b2b; }
+  .card-link, .card-link a { color: #2b2b2b; }
+  .text1, .text2, .text3, .text4, .c-details span,
+  .datestamp-italic, .username-italic, .list-card-index-username,
+  small, em, p { color: $li-card-light-muted; }
+  .text1, .text3 { color: #2b2b2b; }
+
+  .tag span, .tag-show span {
+    background-color: $li-card-light-tint;
+    color: $li-accent-deep;
+    a { color: $li-accent-deep; }
+  }
+  .my-handle, .list-drag-handle { color: #8a8a8a !important; }
+  .fa-xmark, .fa-circle-info { color: #9a9a9a; }
+
+  .form-control {
+    background-color: #fff;
+    border-color: $li-card-light-line;
+    color: #222;
+  }
+}
+
+.stats {
+  p, a, i { color: $li-card-light-muted; }
+}
+
+// Ranked items
+.item-card {
+  .list-item-title { color: #2b2b2b; }
+  .item-rank { background: $li-card-light-tint; color: $li-accent-deep; }
+  .item-actions .infoBtn, .item-actions .delBtn { color: #9a9a9a; }
+  .item-actions .infoBtn.info-active, .item-actions .infoBtn:hover { color: $li-accent-deep; }
+  .item-actions .delBtn:hover { color: $li-red; }
+  .add-desc-hint, .li-desc { color: $li-card-light-muted; }
+  #item_name, #item_description { color: #222; }
+}
+.list-item:nth-child(1) .item-card .item-rank { background: $li-accent-deep; color: #fff; }
